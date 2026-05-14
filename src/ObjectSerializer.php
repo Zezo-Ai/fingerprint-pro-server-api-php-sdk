@@ -191,6 +191,13 @@ class ObjectSerializer
             return [];
         }
 
+        # Handle int and DateTime union in query
+        if ('int|\DateTime' === $openApiType || '\DateTime|int' === $openApiType) {
+            if ($value instanceof \DateTime) {
+                return ["$paramName" => $value->format(self::$dateTimeFormat)];
+            }
+        }
+
         # Handle DateTime objects in query
         if ('\DateTime' === $openApiType && $value instanceof \DateTime) {
             return ["$paramName" => $value->format(self::$dateTimeFormat)];
