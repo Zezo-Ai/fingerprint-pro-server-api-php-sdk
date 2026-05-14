@@ -35,7 +35,7 @@ $apiInstance = new {{classname}}(
     new GuzzleHttp\Client()
 );
 
-{{#allParams}}${{paramName}} = {{{example}}}; // {{{dataType}}}{{#description}} | {{{.}}}{{/description}}
+{{#allParams}}${{paramName}} = {{#composedSchemas.oneOf}}{{#-first}}{{{example}}}{{/-first}}{{/composedSchemas.oneOf}}{{^composedSchemas.oneOf}}{{{example}}}{{/composedSchemas.oneOf}}; // {{^composedSchemas.oneOf}}{{{dataType}}}{{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{#-first}}{{^hasDiscriminatorWithNonEmptyMapping}}{{{schema.dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{{dataType}}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/-first}}{{/composedSchemas.oneOf}}{{#description}} | {{{.}}}{{/description}}
 {{/allParams}}
 
 try {
@@ -53,7 +53,7 @@ try {
 
 {{^allParams}}This endpoint does not need any parameter.{{/allParams}}{{#allParams}}{{#-last}}| Name | Type | Description | Notes |
 | ------------- | ------------- | ------------- | ------------- |{{/-last}}{{/allParams}}
-{{#allParams}}| **{{paramName}}** | {{#isFile}}**{{{dataType}}}**{{/isFile}}{{#isPrimitiveType}}**{{{dataType}}}**{{/isPrimitiveType}}{{^isPrimitiveType}}{{^isFile}}[**{{{dataType}}}**](../Model/{{baseType}}.md){{/isFile}}{{/isPrimitiveType}} | {{{description}}} |{{^required}} [optional]{{/required}}{{#defaultValue}} [default to {{.}}]{{/defaultValue}} |
+{{#allParams}}| **{{paramName}}** | {{#isFile}}**{{{dataType}}}**{{/isFile}}{{#isPrimitiveType}}**{{{dataType}}}**{{/isPrimitiveType}}{{^isPrimitiveType}}{{^isFile}}{{^composedSchemas.oneOf}}[**{{{dataType}}}**](../Model/{{baseType}}.md){{/composedSchemas.oneOf}}{{#composedSchemas.oneOf}}{{^hasDiscriminatorWithNonEmptyMapping}}{{#-first}}**{{/-first}}{{{dataType}}}{{^-last}}\|{{/-last}}{{#-last}}**{{/-last}}{{/hasDiscriminatorWithNonEmptyMapping}}{{#hasDiscriminatorWithNonEmptyMapping}}{{#-first}}[**{{{dataType}}}**](../Model/{{baseType}}.md){{/-first}}{{/hasDiscriminatorWithNonEmptyMapping}}{{/composedSchemas.oneOf}}{{/isFile}}{{/isPrimitiveType}} | {{{description}}} |{{^required}} [optional]{{/required}}{{#defaultValue}} [default to {{.}}]{{/defaultValue}} |
 {{/allParams}}
 
 ### Return type
