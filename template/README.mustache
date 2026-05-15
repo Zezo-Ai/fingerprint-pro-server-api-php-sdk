@@ -235,8 +235,8 @@ Class | Method | HTTP request | Description
 
 ## Documentation for Models
 
-{{#models}}{{#model}} - [{{{classname}}}]({{modelDocPath}}/{{{classname}}}.md)
-{{/model}}{{/models}}
+{{#models}}{{#model}}{{^emptyVars}} - [{{{classname}}}]({{modelDocPath}}/{{{classname}}}.md)
+{{/emptyVars}}{{/model}}{{/models}}
 
 ## Documentation for Authorization
 
