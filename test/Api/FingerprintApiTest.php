@@ -680,7 +680,7 @@ class FingerprintApiTest extends TestCase
             'bundle_id' => 'bundle_id',
             'package_name' => 'package_name',
             'origin' => 'origin',
-            'start' => [$startDate, $startDate->format(\DateTimeInterface::RFC3339)],
+            'start' => [$startDate, '2020-01-01T00:00:00.000+00:00'],
             'end' => $endDate->getTimestamp(),
             'reverse' => true,
             'suspect' => true,
