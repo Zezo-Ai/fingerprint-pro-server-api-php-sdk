@@ -42,7 +42,7 @@ use Fingerprint\ServerSdk\Model\ModelInterface;
  */
 class ObjectSerializer
 {
-    private static string $dateTimeFormat = \DateTimeInterface::ATOM;
+    private static string $dateTimeFormat = \DateTimeInterface::RFC3339_EXTENDED;
 
     /**
      * Change the date format.
