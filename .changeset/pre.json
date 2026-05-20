@@ -1,21 +1,8 @@
 {
   "mode": "pre",
-  "tag": "develop",
+  "tag": "beta",
   "initialVersions": {
     "@fingerprint/php-sdk": "7.1.0"
   },
-  "changesets": [
-    "beige-places-drop",
-    "blue-roses-film",
-    "curvy-rice-chew",
-    "cute-pumas-pull",
-    "developer-tools-android-v4",
-    "fancy-spiders-flash",
-    "fix-backed-enum-build-query",
-    "loud-donuts-lead",
-    "quick-cows-battle",
-    "wet-socks-fold",
-    "witty-lions-worry",
-    "yellow-ducks-spend"
-  ]
+  "changesets": []
 }
