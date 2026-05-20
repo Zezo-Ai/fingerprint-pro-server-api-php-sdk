@@ -1,7 +1,7 @@
 <?php
 
 /**
- * IdentificationConfidence.
+ * SearchEventsStartParameter.
  *
  * @category Class
  *
@@ -32,11 +32,9 @@ namespace Fingerprint\ServerSdk\Model;
 use Fingerprint\ServerSdk\ObjectSerializer;
 
 /**
- * The confidence score represents the probability of a false-positive identification. To learn more, visit [Confidence Score](https://docs.fingerprint.com/docs/identification-accuracy-and-confidence#confidence-score). Please note that the confidence score is not yet supported for [High Recall ID](https://docs.fingerprint.com/docs/supplementary-identifiers-highrecall).
+ * SearchEventsStartParameter Class.
  *
  * @category Class
- *
- * @description The confidence score represents the probability of a false-positive identification. To learn more, visit [Confidence Score](https://docs.fingerprint.com/docs/identification-accuracy-and-confidence#confidence-score). Please note that the confidence score is not yet supported for [High Recall ID](https://docs.fingerprint.com/docs/supplementary-identifiers-highrecall).
  *
  * @author   Fingerprint
  *
@@ -47,7 +45,7 @@ use Fingerprint\ServerSdk\ObjectSerializer;
  * @noinspection GrazieInspection
  * @noinspection RedundantSuppression
  */
-class IdentificationConfidence implements ModelInterface, \ArrayAccess, \JsonSerializable
+class SearchEventsStartParameter implements ModelInterface, \ArrayAccess, \JsonSerializable
 {
     public const DISCRIMINATOR = null;
 
@@ -55,18 +53,14 @@ class IdentificationConfidence implements ModelInterface, \ArrayAccess, \JsonSer
      * The original name of the model.
      *
      */
-    protected static string $openAPIModelName = 'IdentificationConfidence';
+    protected static string $openAPIModelName = 'searchEvents_start_parameter';
 
     /**
      * Array of property to type mappings. Used for (de)serialization.
      *
      * @var string[]
      */
-    protected static array $openAPITypes = [
-        'score' => 'float',
-        'version' => 'string',
-        'comment' => 'string',
-    ];
+    protected static array $openAPITypes = [];
 
     /**
      * Array of property to format mappings. Used for (de)serialization.
@@ -77,22 +71,14 @@ class IdentificationConfidence implements ModelInterface, \ArrayAccess, \JsonSer
      *
      * @psalm-var array<string, string|null>
      */
-    protected static array $openAPIFormats = [
-        'score' => 'double',
-        'version' => null,
-        'comment' => null,
-    ];
+    protected static array $openAPIFormats = [];
 
     /**
      * Array of nullable properties. Used for (de)serialization.
      *
      * @var bool[]
      */
-    protected static array $openAPINullables = [
-        'score' => false,
-        'version' => false,
-        'comment' => false,
-    ];
+    protected static array $openAPINullables = [];
 
     /**
      * If a nullable field gets set to null, insert it here.
@@ -107,33 +93,21 @@ class IdentificationConfidence implements ModelInterface, \ArrayAccess, \JsonSer
      *
      * @var string[]
      */
-    protected static array $attributeMap = [
-        'score' => 'score',
-        'version' => 'version',
-        'comment' => 'comment',
-    ];
+    protected static array $attributeMap = [];
 
     /**
      * Array of attributes to setter functions (for deserialization of responses).
      *
      * @var string[]
      */
-    protected static array $setters = [
-        'score' => 'setScore',
-        'version' => 'setVersion',
-        'comment' => 'setComment',
-    ];
+    protected static array $setters = [];
 
     /**
      * Array of attributes to getter functions (for serialization of requests).
      *
      * @var string[]
      */
-    protected static array $getters = [
-        'score' => 'getScore',
-        'version' => 'getVersion',
-        'comment' => 'getComment',
-    ];
+    protected static array $getters = [];
 
     /**
      * Associative array for storing property values.
@@ -148,12 +122,7 @@ class IdentificationConfidence implements ModelInterface, \ArrayAccess, \JsonSer
      *
      * @noinspection DuplicatedCode
      */
-    public function __construct(?array $data = null)
-    {
-        $this->setIfExists('score', $data ?? [], null);
-        $this->setIfExists('version', $data ?? [], null);
-        $this->setIfExists('comment', $data ?? [], null);
-    }
+    public function __construct(?array $data = null) {}
 
     /**
      * Gets the string presentation of the object.
@@ -246,20 +215,7 @@ class IdentificationConfidence implements ModelInterface, \ArrayAccess, \JsonSer
      */
     public function listInvalidProperties(): array
     {
-        $invalidProperties = [];
-
-        if (null === $this->container['score']) {
-            $invalidProperties[] = "'score' can't be null";
-        }
-        if ($this->container['score'] > 1) {
-            $invalidProperties[] = "invalid value for 'score', must be smaller than or equal to 1.";
-        }
-
-        if ($this->container['score'] < 0) {
-            $invalidProperties[] = "invalid value for 'score', must be bigger than or equal to 0.";
-        }
-
-        return $invalidProperties;
+        return [];
     }
 
     /**
@@ -271,79 +227,6 @@ class IdentificationConfidence implements ModelInterface, \ArrayAccess, \JsonSer
     public function valid(): bool
     {
         return 0 === count($this->listInvalidProperties());
-    }
-
-    /**
-     * Gets score.
-     *
-     */
-    public function getScore(): ?float
-    {
-        return $this->container['score'];
-    }
-
-    /**
-     * Sets score.
-     *
-     * @param float $score A floating-point number between 0 and 1 that represents the probability of a false-positive identification. For High Recall ID, this value is 0.
-     *
-     */
-    public function setScore(float $score): self
-    {
-        if ($score > 1) {
-            throw new \InvalidArgumentException('invalid value for $score when calling IdentificationConfidence., must be smaller than or equal to 1.');
-        }
-        if ($score < 0) {
-            throw new \InvalidArgumentException('invalid value for $score when calling IdentificationConfidence., must be bigger than or equal to 0.');
-        }
-
-        $this->container['score'] = $score;
-
-        return $this;
-    }
-
-    /**
-     * Gets version.
-     *
-     */
-    public function getVersion(): ?string
-    {
-        return $this->container['version'];
-    }
-
-    /**
-     * Sets version.
-     *
-     * @param string $version The version name of the method used to calculate the confidence score. For High Recall ID, this value is \"Not Supported\".
-     *
-     */
-    public function setVersion(string $version): self
-    {
-        $this->container['version'] = $version;
-
-        return $this;
-    }
-
-    /**
-     * Gets comment.
-     *
-     */
-    public function getComment(): ?string
-    {
-        return $this->container['comment'];
-    }
-
-    /**
-     * Sets comment.
-     *
-     * @param string $comment comment
-     *
-     */
-    public function setComment(string $comment): self
-    {
-        $this->container['comment'] = $comment;
-
-        return $this;
     }
 
     /**

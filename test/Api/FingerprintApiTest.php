@@ -5,6 +5,7 @@ namespace Fingerprint\ServerSdk\Test\Api;
 use Fingerprint\ServerSdk\Api\FingerprintApi;
 use Fingerprint\ServerSdk\ApiException;
 use Fingerprint\ServerSdk\Configuration;
+use Fingerprint\ServerSdk\Model\BotInfoConfidence;
 use Fingerprint\ServerSdk\Model\BotResult;
 use Fingerprint\ServerSdk\Model\ErrorCode;
 use Fingerprint\ServerSdk\Model\ErrorResponse;
@@ -17,6 +18,7 @@ use Fingerprint\ServerSdk\Model\IncrementalIdentificationStatus;
 use Fingerprint\ServerSdk\Model\RuleActionType;
 use Fingerprint\ServerSdk\Model\SDK;
 use Fingerprint\ServerSdk\Model\SearchEventsBot;
+use Fingerprint\ServerSdk\Model\SearchEventsBotInfo;
 use Fingerprint\ServerSdk\Model\SearchEventsIncrementalIdentificationStatus;
 use Fingerprint\ServerSdk\Model\SearchEventsSdkPlatform;
 use Fingerprint\ServerSdk\Model\SearchEventsVpnConfidence;
@@ -658,12 +660,19 @@ class FingerprintApiTest extends TestCase
      */
     public function testSearchEventsWithAllParams()
     {
+        $startDate = new \DateTime('2020-01-01 00:00:00');
+        $endDate = new \DateTime('2020-01-02 00:00:00');
+
         $expected = [
             'limit' => 15,
             'pagination_key' => 'pagination',
             'visitor_id' => MockHelper::MOCK_VISITOR_ID,
             'high_recall_id' => 'high_recall_id',
             'bot' => [SearchEventsBot::GOOD, 'good'],
+            'bot_info' => [SearchEventsBotInfo::ALL, 'all'],
+            'bot_info_confidence' => [[BotInfoConfidence::HIGH, BotInfoConfidence::MEDIUM], ['high', 'medium']],
+            'bot_info_provider' => [['google', 'openai'], ['google', 'openai']],
+            'bot_info_name' => [['gemini', 'chatgpt'], ['gemini', 'chatgpt']],
             'ip_address' => '127.0.0.1/16',
             'asn' => 'asn',
             'linked_id' => 'linked_id',
@@ -671,8 +680,8 @@ class FingerprintApiTest extends TestCase
             'bundle_id' => 'bundle_id',
             'package_name' => 'package_name',
             'origin' => 'origin',
-            'start' => (new \DateTime('2020-01-01 00:00:00'))->getTimestamp(),
-            'end' => (new \DateTime('2020-01-02 00:00:00'))->getTimestamp(),
+            'start' => [$startDate, $startDate->format(\DateTimeInterface::RFC3339)],
+            'end' => $endDate->getTimestamp(),
             'reverse' => true,
             'suspect' => true,
             'vpn' => true,
@@ -730,6 +739,10 @@ class FingerprintApiTest extends TestCase
             visitor_id: $expected['visitor_id'],
             high_recall_id: $expected['high_recall_id'],
             bot: $expected['bot'][0],
+            bot_info: $expected['bot_info'][0],
+            bot_info_confidence: $expected['bot_info_confidence'][0],
+            bot_info_provider: $expected['bot_info_provider'][0],
+            bot_info_name: $expected['bot_info_name'][0],
             ip_address: $expected['ip_address'],
             asn: $expected['asn'],
             linked_id: $expected['linked_id'],
@@ -737,7 +750,7 @@ class FingerprintApiTest extends TestCase
             bundle_id: $expected['bundle_id'],
             package_name: $expected['package_name'],
             origin: $expected['origin'],
-            start: $expected['start'],
+            start: $expected['start'][0],
             end: $expected['end'],
             reverse: $expected['reverse'],
             suspect: $expected['suspect'],
@@ -1316,5 +1329,15 @@ class FingerprintApiTest extends TestCase
         $this->assertEquals('db3c1462576a399a03ae93d0ab9eb5c4', $rawDeviceAttributes->getCanvas()->getGeometry());
         $this->assertEquals('24', $rawDeviceAttributes->getColorDepth());
         $this->assertTrue($rawDeviceAttributes->getCookiesEnabled());
+
+        $labels = $event->getLabels();
+        $actualLabels = $actual->labels;
+        $totalLabel = count($labels);
+        $this->assertCount($totalLabel, $labels);
+        for ($i = 0; $i < $totalLabel; ++$i) {
+            $this->assertEquals($actualLabels[$i]->label, $labels[$i]->getLabel());
+            $this->assertEquals($actualLabels[$i]->prediction, $labels[$i]->getPrediction());
+            $this->assertEquals($actualLabels[$i]->ml_score, $labels[$i]->getMlScore());
+        }
     }
 }

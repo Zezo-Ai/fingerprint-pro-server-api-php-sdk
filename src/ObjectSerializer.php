@@ -513,6 +513,9 @@ class ObjectSerializer
             if (!is_array($v)) {
                 $qs .= $k;
                 $v = is_bool($v) ? $castBool($v) : $v;
+                if ($v instanceof \BackedEnum) {
+                    $v = $v->value;
+                }
                 if (null !== $v) {
                     $qs .= '='.$encoder((string) $v);
                 }
@@ -521,6 +524,9 @@ class ObjectSerializer
                 foreach ($v as $vv) {
                     $qs .= $k;
                     $vv = is_bool($vv) ? $castBool($vv) : $vv;
+                    if ($vv instanceof \BackedEnum) {
+                        $vv = $vv->value;
+                    }
                     if (null !== $vv) {
                         $qs .= '='.$encoder((string) $vv);
                     }

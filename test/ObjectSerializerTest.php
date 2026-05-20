@@ -2,6 +2,7 @@
 
 namespace Fingerprint\ServerSdk\Test;
 
+use Fingerprint\ServerSdk\Model\BotInfoConfidence;
 use Fingerprint\ServerSdk\Model\Event;
 use Fingerprint\ServerSdk\Model\EventUpdate;
 use Fingerprint\ServerSdk\ObjectSerializer;
@@ -186,6 +187,26 @@ class ObjectSerializerTest extends TestCase
         $params = ['q' => 'a b+c'];
 
         $this->assertSame('q=a b+c', ObjectSerializer::buildQuery($params, false));
+    }
+
+    /**
+     * buildQuery should extract the value from a BackedEnum scalar parameter.
+     */
+    public function testBuildQueryBackedEnumScalar(): void
+    {
+        $params = ['confidence' => BotInfoConfidence::HIGH];
+
+        $this->assertSame('confidence=high', ObjectSerializer::buildQuery($params));
+    }
+
+    /**
+     * buildQuery should extract the value from BackedEnum items inside an array parameter.
+     */
+    public function testBuildQueryBackedEnumArray(): void
+    {
+        $params = ['confidence' => [BotInfoConfidence::HIGH, BotInfoConfidence::MEDIUM]];
+
+        $this->assertSame('confidence=high&confidence=medium', ObjectSerializer::buildQuery($params));
     }
 
     /**
