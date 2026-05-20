@@ -1329,5 +1329,15 @@ class FingerprintApiTest extends TestCase
         $this->assertEquals('db3c1462576a399a03ae93d0ab9eb5c4', $rawDeviceAttributes->getCanvas()->getGeometry());
         $this->assertEquals('24', $rawDeviceAttributes->getColorDepth());
         $this->assertTrue($rawDeviceAttributes->getCookiesEnabled());
+
+        $labels = $event->getLabels();
+        $actualLabels = $actual->labels;
+        $totalLabel = count($labels);
+        $this->assertCount($totalLabel, $labels);
+        for ($i = 0; $i < $totalLabel; ++$i) {
+            $this->assertEquals($actualLabels[$i]->label, $labels[$i]->getLabel());
+            $this->assertEquals($actualLabels[$i]->prediction, $labels[$i]->getPrediction());
+            $this->assertEquals($actualLabels[$i]->ml_score, $labels[$i]->getMlScore());
+        }
     }
 }
