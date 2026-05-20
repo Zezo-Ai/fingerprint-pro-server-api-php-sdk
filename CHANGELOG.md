@@ -1,5 +1,25 @@
 # Fingerprint Server PHP SDK
 
+## 7.2.0-beta.1
+
+### Minor Changes
+
+- **events-search**: Add `start_date_time` and `end_date_time` RFC3339 timestamp filters ([c68cc6a](https://github.com/fingerprintjs/php-sdk/commit/c68cc6a8af186b97baf36631118a3fbce4e3f2a7))
+- **events**: Add Android platform support to `developer_tools` smart signal ([c68cc6a](https://github.com/fingerprintjs/php-sdk/commit/c68cc6a8af186b97baf36631118a3fbce4e3f2a7))
+- **events**: Add `labels` to `Event` ([c68cc6a](https://github.com/fingerprintjs/php-sdk/commit/c68cc6a8af186b97baf36631118a3fbce4e3f2a7))
+- **events**: Add iOS platform support to `developer_tools` ([c68cc6a](https://github.com/fingerprintjs/php-sdk/commit/c68cc6a8af186b97baf36631118a3fbce4e3f2a7))
+- **events-search**: Add `bot_info` filter parameters ([c68cc6a](https://github.com/fingerprintjs/php-sdk/commit/c68cc6a8af186b97baf36631118a3fbce4e3f2a7))
+- **events-search**: Add `unknown` value to `BotInfoCategory` ([c68cc6a](https://github.com/fingerprintjs/php-sdk/commit/c68cc6a8af186b97baf36631118a3fbce4e3f2a7))
+
+### Patch Changes
+
+- **events**: Clarify availability of proxy and VM ML score signals ([c68cc6a](https://github.com/fingerprintjs/php-sdk/commit/c68cc6a8af186b97baf36631118a3fbce4e3f2a7))
+- **events**: Clarify semantics of `incremental_identification_status` ([c68cc6a](https://github.com/fingerprintjs/php-sdk/commit/c68cc6a8af186b97baf36631118a3fbce4e3f2a7))
+- **visitors**: Clarify rate limits for `deleteVisitorData` operation ([c68cc6a](https://github.com/fingerprintjs/php-sdk/commit/c68cc6a8af186b97baf36631118a3fbce4e3f2a7))
+- **search-events**: Fix `BackedEnum` query parameters causing "Object could not be converted to string" error in `buildQuery` ([4fcd455](https://github.com/fingerprintjs/php-sdk/commit/4fcd4550e4ae4deae847e7651e37ca6f9232f5b4))
+- **events-search**: Clarify availability of `rare_device` and `rare_device_percentile_bucket` query parameters ([c68cc6a](https://github.com/fingerprintjs/php-sdk/commit/c68cc6a8af186b97baf36631118a3fbce4e3f2a7))
+- **events-search**: Fix `pagination_key` example ([c68cc6a](https://github.com/fingerprintjs/php-sdk/commit/c68cc6a8af186b97baf36631118a3fbce4e3f2a7))
+
 ## 7.2.0-develop.0
 
 ### Minor Changes
