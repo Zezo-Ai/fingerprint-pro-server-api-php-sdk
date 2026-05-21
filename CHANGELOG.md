@@ -1,5 +1,11 @@
 # Fingerprint Server PHP SDK
 
+## 7.2.0-beta.2
+
+### Patch Changes
+
+- temporary changeset: fix date-time formatting in query parameters ([bb21f46](https://github.com/fingerprintjs/php-sdk/commit/bb21f463e619f21368b27b5734aa257e45fb14f9))
+
 ## 7.2.0-beta.1
 
 ### Minor Changes
