@@ -377,7 +377,7 @@ class EventRuleAction implements ModelInterface, \ArrayAccess, \JsonSerializable
      * Gets type.
      *
      */
-    public function getType(): ?RuleActionType
+    public function getType(): RuleActionType|string|null
     {
         return $this->container['type'];
     }
@@ -385,10 +385,10 @@ class EventRuleAction implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets type.
      *
-     * @param RuleActionType $type type
+     * @param RuleActionType|string $type type
      *
      */
-    public function setType(RuleActionType $type): self
+    public function setType(RuleActionType|string $type): self
     {
         $this->container['type'] = $type;
 

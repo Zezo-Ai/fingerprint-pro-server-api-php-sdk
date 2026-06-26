@@ -68,14 +68,14 @@ class ProximityTest extends TestCase
     }
 
     /**
-     * setPrecisionRadius should throw InvalidArgumentException for an invalid enum value.
+     * setPrecisionRadius should accept unknown enum values without throwing.
      */
-    public function testSetPrecisionRadiusRejectsInvalidValue(): void
+    public function testSetPrecisionRadiusAcceptsUnknownValue(): void
     {
         $model = new Proximity();
 
-        $this->expectException(\InvalidArgumentException::class);
         $model->setPrecisionRadius(999);
+        $this->assertEquals(999, $model->getPrecisionRadius());
     }
 
     /**
@@ -199,21 +199,18 @@ class ProximityTest extends TestCase
     }
 
     /**
-     * listInvalidProperties should report invalid enum values set via ArrayAccess bypass.
+     * listInvalidProperties should not report unknown enum values.
      */
-    public function testListInvalidPropertiesWithInvalidEnumValues(): void
+    public function testListInvalidPropertiesAcceptsUnknownEnumValues(): void
     {
         $model = new Proximity(self::EXAMPLE);
 
         $model['precision_radius'] = 999;
 
         $invalid = $model->listInvalidProperties();
-        $expected = "'".implode("', '", self::PRECISION_RADIUS_VALUES)."'";
 
-        $this->assertContains(
-            "invalid value '999' for 'precision_radius', must be one of ".$expected,
-            $invalid
-        );
+        $enumErrors = array_filter($invalid, fn ($msg) => str_contains($msg, 'invalid value'));
+        $this->assertEmpty($enumErrors, 'Unknown enum values should not produce invalid properties');
     }
 
     /**

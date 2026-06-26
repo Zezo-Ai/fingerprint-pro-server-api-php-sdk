@@ -271,15 +271,6 @@ class SDK implements ModelInterface, \ArrayAccess, \JsonSerializable
         if (null === $this->container['platform']) {
             $invalidProperties[] = "'platform' can't be null";
         }
-        $allowedValues = $this->getPlatformAllowableValues();
-        if (!is_null($this->container['platform']) && !in_array($this->container['platform'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'platform', must be one of '%s'",
-                $this->container['platform'],
-                implode("', '", $allowedValues)
-            );
-        }
-
         if (null === $this->container['version']) {
             $invalidProperties[] = "'version' can't be null";
         }
@@ -315,16 +306,6 @@ class SDK implements ModelInterface, \ArrayAccess, \JsonSerializable
      */
     public function setPlatform(string $platform): self
     {
-        $allowedValues = $this->getPlatformAllowableValues();
-        if (!in_array($platform, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'platform', must be one of '%s'",
-                    $platform,
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
         $this->container['platform'] = $platform;
 
         return $this;

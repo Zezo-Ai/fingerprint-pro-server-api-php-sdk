@@ -318,25 +318,8 @@ class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
         if (null === $this->container['identity']) {
             $invalidProperties[] = "'identity' can't be null";
         }
-        $allowedValues = $this->getIdentityAllowableValues();
-        if (!is_null($this->container['identity']) && !in_array($this->container['identity'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'identity', must be one of '%s'",
-                $this->container['identity'],
-                implode("', '", $allowedValues)
-            );
-        }
-
         if (null === $this->container['confidence']) {
             $invalidProperties[] = "'confidence' can't be null";
-        }
-        $allowedValues = $this->getConfidenceAllowableValues();
-        if (!is_null($this->container['confidence']) && !in_array($this->container['confidence'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'confidence', must be one of '%s'",
-                $this->container['confidence'],
-                implode("', '", $allowedValues)
-            );
         }
 
         return $invalidProperties;
@@ -458,16 +441,6 @@ class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
      */
     public function setIdentity(string $identity): self
     {
-        $allowedValues = $this->getIdentityAllowableValues();
-        if (!in_array($identity, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'identity', must be one of '%s'",
-                    $identity,
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
         $this->container['identity'] = $identity;
 
         return $this;
@@ -490,16 +463,6 @@ class BotInfo implements ModelInterface, \ArrayAccess, \JsonSerializable
      */
     public function setConfidence(string $confidence): self
     {
-        $allowedValues = $this->getConfidenceAllowableValues();
-        if (!in_array($confidence, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'confidence', must be one of '%s'",
-                    $confidence,
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
         $this->container['confidence'] = $confidence;
 
         return $this;

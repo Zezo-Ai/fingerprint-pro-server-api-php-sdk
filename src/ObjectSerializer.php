@@ -89,17 +89,6 @@ class ObjectSerializer
                     $value = $data->{$getter}();
                     if ($value instanceof \BackedEnum) {
                         $value = $value->value;
-                    } elseif (null !== $value && !in_array($openAPIType, ['\DateTime', '\SplFileObject', 'array', 'bool', 'boolean', 'byte', 'float', 'int', 'integer', 'mixed', 'number', 'object', 'string', 'void'], true)) {
-                        $callable = [$openAPIType, 'getAllowableEnumValues'];
-                        if (is_callable($callable)) {
-                            /** array $callable */
-                            $allowedEnumTypes = $callable();
-                            if (!in_array($value, $allowedEnumTypes, true)) {
-                                $imploded = implode("', '", $allowedEnumTypes);
-
-                                throw new \InvalidArgumentException("Invalid value for enum '$openAPIType', must be one of: '$imploded'");
-                            }
-                        }
                     }
                     if (($data::isNullable($property) && $data->isNullableSetToNull($property)) || null !== $value) {
                         $values[$data::attributeMap()[$property]] = self::sanitizeForSerialization($value, $formats[$property]);
@@ -423,14 +412,7 @@ class ObjectSerializer
 
         if (enum_exists($class)) {
             /* @var \BackedEnum $class */
-            try {
-                return $class::from($data);
-            } catch (\ValueError $e) {
-                $allowedValues = array_map(fn ($case) => $case->value, $class::cases());
-                $imploded = implode("', '", $allowedValues);
-
-                throw new \InvalidArgumentException("Invalid value for enum '$class', must be one of: '$imploded'", previous: $e);
-            }
+            return $class::tryFrom($data) ?? $data;
         }
 
         $data = is_string($data) ? json_decode($data) : $data;

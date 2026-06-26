@@ -81,25 +81,25 @@ class BotInfoTest extends TestCase
     }
 
     /**
-     * setIdentity should throw InvalidArgumentException for an invalid enum value.
+     * setIdentity should accept unknown enum values without throwing.
      */
-    public function testSetIdentityRejectsInvalidValue(): void
+    public function testSetIdentityAcceptsUnknownValue(): void
     {
         $model = new BotInfo();
 
-        $this->expectException(\InvalidArgumentException::class);
         $model->setIdentity('invalid');
+        $this->assertEquals('invalid', $model->getIdentity());
     }
 
     /**
-     * setConfidence should throw InvalidArgumentException for an invalid enum value.
+     * setConfidence should accept unknown enum values without throwing.
      */
-    public function testSetConfidenceRejectsInvalidValue(): void
+    public function testSetConfidenceAcceptsUnknownValue(): void
     {
         $model = new BotInfo();
 
-        $this->expectException(\InvalidArgumentException::class);
         $model->setConfidence('invalid');
+        $this->assertEquals('invalid', $model->getConfidence());
     }
 
     /**
@@ -218,9 +218,9 @@ class BotInfoTest extends TestCase
     }
 
     /**
-     * listInvalidProperties should report invalid enum values set via ArrayAccess bypass.
+     * listInvalidProperties should not report unknown enum values.
      */
-    public function testListInvalidPropertiesWithInvalidEnumValues(): void
+    public function testListInvalidPropertiesAcceptsUnknownEnumValues(): void
     {
         $model = new BotInfo(self::EXAMPLE);
 
@@ -228,18 +228,9 @@ class BotInfoTest extends TestCase
         $model['confidence'] = 'not_a_valid_confidence';
 
         $invalid = $model->listInvalidProperties();
-        $expected = "'".implode("', '", self::IDENTITY_VALUES)."'";
 
-        $this->assertContains(
-            "invalid value 'not_a_valid_identity' for 'identity', must be one of ".$expected,
-            $invalid
-        );
-
-        $expected = "'".implode("', '", self::CONFIDENCE_VALUES)."'";
-        $this->assertContains(
-            "invalid value 'not_a_valid_confidence' for 'confidence', must be one of ".$expected,
-            $invalid
-        );
+        $enumErrors = array_filter($invalid, fn ($msg) => str_contains($msg, 'invalid value'));
+        $this->assertEmpty($enumErrors, 'Unknown enum values should not produce invalid properties');
     }
 
     /**

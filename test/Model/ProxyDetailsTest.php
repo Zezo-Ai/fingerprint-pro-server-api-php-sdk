@@ -61,14 +61,14 @@ class ProxyDetailsTest extends TestCase
     }
 
     /**
-     * setProxyType should throw InvalidArgumentException for an invalid enum value.
+     * setProxyType should accept unknown enum values without throwing.
      */
-    public function testSetProxyTypeRejectsInvalidValue(): void
+    public function testSetProxyTypeAcceptsUnknownValue(): void
     {
         $model = new ProxyDetails();
 
-        $this->expectException(\InvalidArgumentException::class);
         $model->setProxyType('invalid');
+        $this->assertEquals('invalid', $model->getProxyType());
     }
 
     /**
@@ -170,21 +170,18 @@ class ProxyDetailsTest extends TestCase
     }
 
     /**
-     * listInvalidProperties should report invalid enum values set via ArrayAccess bypass.
+     * listInvalidProperties should not report unknown enum values.
      */
-    public function testListInvalidPropertiesWithInvalidEnumValues(): void
+    public function testListInvalidPropertiesAcceptsUnknownEnumValues(): void
     {
         $model = new ProxyDetails(self::EXAMPLE);
 
         $model['proxy_type'] = 'not_a_valid_proxy_type';
 
         $invalid = $model->listInvalidProperties();
-        $expected = "'".implode("', '", self::PROXY_TYPE_VALUES)."'";
 
-        $this->assertContains(
-            "invalid value 'not_a_valid_proxy_type' for 'proxy_type', must be one of ".$expected,
-            $invalid
-        );
+        $enumErrors = array_filter($invalid, fn ($msg) => str_contains($msg, 'invalid value'));
+        $this->assertEmpty($enumErrors, 'Unknown enum values should not produce invalid properties');
     }
 
     /**
@@ -237,5 +234,33 @@ class ProxyDetailsTest extends TestCase
 
         $this->assertNull($model->getProxyType());
         $this->assertFalse($model->isNullableSetToNull('proxy_type'));
+    }
+
+    /**
+     * Deserializing a JSON response with an unknown proxy_type should not throw.
+     * The unknown value should be preserved through deserialization and re-serialization.
+     *
+     * @throws \DateMalformedStringException
+     */
+    public function testDeserializationWithUnknownProxyType(): void
+    {
+        $json = json_encode([
+            'proxy_type' => 'corporate',
+            'last_seen_at' => 1700000000,
+            'provider' => 'example',
+        ]);
+
+        /** @var ProxyDetails $model */
+        $model = ObjectSerializer::deserialize(json_decode($json), ProxyDetails::class);
+
+        $this->assertEquals('corporate', $model->getProxyType());
+        $this->assertEquals(1700000000, $model->getLastSeenAt());
+        $this->assertEquals('example', $model->getProvider());
+        $this->assertTrue($model->valid());
+
+        // Re-serialization should preserve the unknown value
+        $reserialized = json_encode(ObjectSerializer::sanitizeForSerialization($model));
+        $decoded = json_decode($reserialized, true);
+        $this->assertEquals('corporate', $decoded['proxy_type']);
     }
 }

@@ -285,17 +285,6 @@ class {{classname}} {{#parentSchema}}extends {{{parent}}}{{/parentSchema}}{{^par
         }
         {{/required}}
         {{#isEnum}}
-        {{^isContainer}}
-        $allowedValues = $this->{{getter}}AllowableValues();
-        if (!is_null($this->container['{{name}}']) && !in_array($this->container['{{name}}'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for '{{name}}', must be one of '%s'",
-                $this->container['{{name}}'],
-                implode("', '", $allowedValues)
-            );
-        }
-
-        {{/isContainer}}
         {{/isEnum}}
         {{#hasValidation}}
         {{#maxLength}}
@@ -361,12 +350,12 @@ class {{classname}} {{#parentSchema}}extends {{{parent}}}{{/parentSchema}}{{^par
     /**
      * Gets {{name}}
      *
-     * @return {{{dataType}}}|null
+     * @return {{#isEnumRef}}{{{dataType}}}|string|null{{/isEnumRef}}{{^isEnumRef}}{{{dataType}}}|null{{/isEnumRef}}
     {{#deprecated}}
      * @deprecated
     {{/deprecated}}
      */
-    public function {{getter}}(): ?{{#isArray}}array{{/isArray}}{{#isMap}}array{{/isMap}}{{^isArray}}{{^isMap}}{{{dataType}}}{{/isMap}}{{/isArray}}
+    public function {{getter}}(): {{^isEnumRef}}?{{/isEnumRef}}{{#isArray}}array{{/isArray}}{{#isMap}}array{{/isMap}}{{^isArray}}{{^isMap}}{{{dataType}}}{{/isMap}}{{/isArray}}{{#isEnumRef}}|string|null{{/isEnumRef}}
     {
         return $this->container['{{name}}'];
     }
@@ -374,14 +363,14 @@ class {{classname}} {{#parentSchema}}extends {{{parent}}}{{/parentSchema}}{{^par
     /**
      * Sets {{name}}
      *
-     * @param {{{dataType}}}{{#isNullable}}|null{{/isNullable}} ${{name}}{{#description}} {{{.}}}{{/description}}{{^description}} {{{name}}}{{/description}}
+     * @param {{#isEnumRef}}{{{dataType}}}|string{{/isEnumRef}}{{^isEnumRef}}{{{dataType}}}{{/isEnumRef}}{{#isNullable}}|null{{/isNullable}} ${{name}}{{#description}} {{{.}}}{{/description}}{{^description}} {{{name}}}{{/description}}
      *
      * @return self
     {{#deprecated}}
      * @deprecated
     {{/deprecated}}
      */
-    public function {{setter}}({{#isNullable}}?{{/isNullable}}{{#isArray}}array{{/isArray}}{{#isMap}}array{{/isMap}}{{^isArray}}{{^isMap}}{{{dataType}}}{{/isMap}}{{/isArray}} ${{name}}): self
+    public function {{setter}}({{^isEnumRef}}{{#isNullable}}?{{/isNullable}}{{/isEnumRef}}{{#isArray}}array{{/isArray}}{{#isMap}}array{{/isMap}}{{^isArray}}{{^isMap}}{{{dataType}}}{{/isMap}}{{/isArray}}{{#isEnumRef}}|string{{#isNullable}}|null{{/isNullable}}{{/isEnumRef}} ${{name}}): self
     {
         {{#isNullable}}
         if (is_null(${{name}})) {
@@ -396,33 +385,6 @@ class {{classname}} {{#parentSchema}}extends {{{parent}}}{{/parentSchema}}{{^par
         }
         {{/isNullable}}
         {{#isEnum}}
-        $allowedValues = $this->{{getter}}AllowableValues();
-        {{^isContainer}}
-        if ({{#isNullable}}!is_null(${{name}}) && {{/isNullable}}!in_array(${{{name}}}, $allowedValues, true)) {
-        {{#enumUnknownDefaultCase}}
-            ${{name}} = {{#allowableValues}}{{#enumVars}}{{#-last}}self::{{enumName}}_{{{name}}};{{/-last}}{{/enumVars}}{{/allowableValues}}
-        {{/enumUnknownDefaultCase}}
-        {{^enumUnknownDefaultCase}}
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for '{{name}}', must be one of '%s'",
-                    ${{{name}}},
-                    implode("', '", $allowedValues)
-                )
-            );
-        {{/enumUnknownDefaultCase}}
-        }
-        {{/isContainer}}
-        {{#isContainer}}
-        if ({{#isNullable}}!is_null(${{name}}) && {{/isNullable}}array_diff(${{{name}}}, $allowedValues)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value for '{{name}}', must be one of '%s'",
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
-        {{/isContainer}}
         {{/isEnum}}
         {{#hasValidation}}
         {{#maxLength}}

@@ -267,14 +267,6 @@ class ProxyDetails implements ModelInterface, \ArrayAccess, \JsonSerializable
         if (null === $this->container['proxy_type']) {
             $invalidProperties[] = "'proxy_type' can't be null";
         }
-        $allowedValues = $this->getProxyTypeAllowableValues();
-        if (!is_null($this->container['proxy_type']) && !in_array($this->container['proxy_type'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'proxy_type', must be one of '%s'",
-                $this->container['proxy_type'],
-                implode("', '", $allowedValues)
-            );
-        }
 
         return $invalidProperties;
     }
@@ -307,16 +299,6 @@ class ProxyDetails implements ModelInterface, \ArrayAccess, \JsonSerializable
      */
     public function setProxyType(string $proxy_type): self
     {
-        $allowedValues = $this->getProxyTypeAllowableValues();
-        if (!in_array($proxy_type, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'proxy_type', must be one of '%s'",
-                    $proxy_type,
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
         $this->container['proxy_type'] = $proxy_type;
 
         return $this;
