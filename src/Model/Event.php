@@ -731,7 +731,6 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Gets incremental_identification_status.
      *
-     * @return IncrementalIdentificationStatus|null
      */
     public function getIncrementalIdentificationStatus(): IncrementalIdentificationStatus|string|null
     {
@@ -741,7 +740,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets incremental_identification_status.
      *
-     * @param IncrementalIdentificationStatus $incremental_identification_status incremental_identification_status
+     * @param IncrementalIdentificationStatus|string $incremental_identification_status incremental_identification_status
      *
      */
     public function setIncrementalIdentificationStatus(IncrementalIdentificationStatus|string $incremental_identification_status): self
@@ -1107,7 +1106,6 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Gets bot.
      *
-     * @return BotResult|null
      */
     public function getBot(): BotResult|string|null
     {
@@ -1117,7 +1115,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets bot.
      *
-     * @param BotResult $bot bot
+     * @param BotResult|string $bot bot
      *
      */
     public function setBot(BotResult|string $bot): self
@@ -1350,7 +1348,6 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Gets proxy_confidence.
      *
-     * @return ProxyConfidence|null
      */
     public function getProxyConfidence(): ProxyConfidence|string|null
     {
@@ -1360,7 +1357,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets proxy_confidence.
      *
-     * @param ProxyConfidence $proxy_confidence proxy_confidence
+     * @param ProxyConfidence|string $proxy_confidence proxy_confidence
      *
      */
     public function setProxyConfidence(ProxyConfidence|string $proxy_confidence): self
@@ -1644,7 +1641,6 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Gets tampering_confidence.
      *
-     * @return TamperingConfidence|null
      */
     public function getTamperingConfidence(): string|TamperingConfidence|null
     {
@@ -1654,7 +1650,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets tampering_confidence.
      *
-     * @param TamperingConfidence $tampering_confidence tampering_confidence
+     * @param TamperingConfidence|string $tampering_confidence tampering_confidence
      *
      */
     public function setTamperingConfidence(string|TamperingConfidence $tampering_confidence): self
@@ -1813,7 +1809,6 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Gets vpn_confidence.
      *
-     * @return VpnConfidence|null
      */
     public function getVpnConfidence(): string|VpnConfidence|null
     {
@@ -1823,7 +1818,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets vpn_confidence.
      *
-     * @param VpnConfidence $vpn_confidence vpn_confidence
+     * @param VpnConfidence|string $vpn_confidence vpn_confidence
      *
      */
     public function setVpnConfidence(string|VpnConfidence $vpn_confidence): self
@@ -1946,7 +1941,6 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Gets rare_device_percentile_bucket.
      *
-     * @return RareDevicePercentileBucket|null
      */
     public function getRareDevicePercentileBucket(): RareDevicePercentileBucket|string|null
     {
@@ -1956,7 +1950,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets rare_device_percentile_bucket.
      *
-     * @param RareDevicePercentileBucket $rare_device_percentile_bucket rare_device_percentile_bucket
+     * @param RareDevicePercentileBucket|string $rare_device_percentile_bucket rare_device_percentile_bucket
      *
      */
     public function setRareDevicePercentileBucket(RareDevicePercentileBucket|string $rare_device_percentile_bucket): self

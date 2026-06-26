@@ -263,7 +263,6 @@ class Error implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Gets code.
      *
-     * @return ErrorCode|null
      */
     public function getCode(): ErrorCode|string|null
     {
@@ -273,7 +272,7 @@ class Error implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Sets code.
      *
-     * @param ErrorCode $code code
+     * @param ErrorCode|string $code code
      *
      */
     public function setCode(ErrorCode|string $code): self

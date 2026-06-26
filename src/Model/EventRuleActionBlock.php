@@ -366,7 +366,6 @@ class EventRuleActionBlock implements ModelInterface, \ArrayAccess, \JsonSeriali
     /**
      * Gets type.
      *
-     * @return RuleActionType|null
      */
     public function getType(): RuleActionType|string|null
     {
@@ -376,7 +375,7 @@ class EventRuleActionBlock implements ModelInterface, \ArrayAccess, \JsonSeriali
     /**
      * Sets type.
      *
-     * @param RuleActionType $type type
+     * @param RuleActionType|string $type type
      *
      */
     public function setType(RuleActionType|string $type): self
