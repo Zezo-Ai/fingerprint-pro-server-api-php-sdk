@@ -355,7 +355,7 @@ class {{classname}} {{#parentSchema}}extends {{{parent}}}{{/parentSchema}}{{^par
      * @deprecated
     {{/deprecated}}
      */
-    public function {{getter}}(): {{#isEnumRef}}null|{{/isEnumRef}}{{^isEnumRef}}?{{/isEnumRef}}{{#isArray}}array{{/isArray}}{{#isMap}}array{{/isMap}}{{^isArray}}{{^isMap}}{{{dataType}}}{{/isMap}}{{/isArray}}{{#isEnumRef}}|string{{/isEnumRef}}
+    public function {{getter}}(): {{^isEnumRef}}?{{/isEnumRef}}{{#isArray}}array{{/isArray}}{{#isMap}}array{{/isMap}}{{^isArray}}{{^isMap}}{{{dataType}}}{{/isMap}}{{/isArray}}{{#isEnumRef}}|string|null{{/isEnumRef}}
     {
         return $this->container['{{name}}'];
     }
@@ -370,7 +370,7 @@ class {{classname}} {{#parentSchema}}extends {{{parent}}}{{/parentSchema}}{{^par
      * @deprecated
     {{/deprecated}}
      */
-    public function {{setter}}({{#isEnumRef}}{{#isNullable}}null|{{/isNullable}}{{/isEnumRef}}{{^isEnumRef}}{{#isNullable}}?{{/isNullable}}{{/isEnumRef}}{{#isArray}}array{{/isArray}}{{#isMap}}array{{/isMap}}{{^isArray}}{{^isMap}}{{{dataType}}}{{/isMap}}{{/isArray}}{{#isEnumRef}}|string{{/isEnumRef}} ${{name}}): self
+    public function {{setter}}({{^isEnumRef}}{{#isNullable}}?{{/isNullable}}{{/isEnumRef}}{{#isArray}}array{{/isArray}}{{#isMap}}array{{/isMap}}{{^isArray}}{{^isMap}}{{{dataType}}}{{/isMap}}{{/isArray}}{{#isEnumRef}}|string{{#isNullable}}|null{{/isNullable}}{{/isEnumRef}} ${{name}}): self
     {
         {{#isNullable}}
         if (is_null(${{name}})) {
