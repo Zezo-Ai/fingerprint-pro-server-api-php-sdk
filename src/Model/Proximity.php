@@ -284,15 +284,6 @@ class Proximity implements ModelInterface, \ArrayAccess, \JsonSerializable
         if (null === $this->container['precision_radius']) {
             $invalidProperties[] = "'precision_radius' can't be null";
         }
-        $allowedValues = $this->getPrecisionRadiusAllowableValues();
-        if (!is_null($this->container['precision_radius']) && !in_array($this->container['precision_radius'], $allowedValues, true)) {
-            $invalidProperties[] = sprintf(
-                "invalid value '%s' for 'precision_radius', must be one of '%s'",
-                $this->container['precision_radius'],
-                implode("', '", $allowedValues)
-            );
-        }
-
         if (null === $this->container['confidence']) {
             $invalidProperties[] = "'confidence' can't be null";
         }
@@ -357,16 +348,6 @@ class Proximity implements ModelInterface, \ArrayAccess, \JsonSerializable
      */
     public function setPrecisionRadius(int $precision_radius): self
     {
-        $allowedValues = $this->getPrecisionRadiusAllowableValues();
-        if (!in_array($precision_radius, $allowedValues, true)) {
-            throw new \InvalidArgumentException(
-                sprintf(
-                    "Invalid value '%s' for 'precision_radius', must be one of '%s'",
-                    $precision_radius,
-                    implode("', '", $allowedValues)
-                )
-            );
-        }
         $this->container['precision_radius'] = $precision_radius;
 
         return $this;

@@ -731,8 +731,9 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Gets incremental_identification_status.
      *
+     * @return IncrementalIdentificationStatus|null
      */
-    public function getIncrementalIdentificationStatus(): ?IncrementalIdentificationStatus
+    public function getIncrementalIdentificationStatus(): IncrementalIdentificationStatus|string|null
     {
         return $this->container['incremental_identification_status'];
     }
@@ -743,7 +744,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
      * @param IncrementalIdentificationStatus $incremental_identification_status incremental_identification_status
      *
      */
-    public function setIncrementalIdentificationStatus(IncrementalIdentificationStatus $incremental_identification_status): self
+    public function setIncrementalIdentificationStatus(IncrementalIdentificationStatus|string $incremental_identification_status): self
     {
         $this->container['incremental_identification_status'] = $incremental_identification_status;
 
@@ -1106,8 +1107,9 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Gets bot.
      *
+     * @return BotResult|null
      */
-    public function getBot(): ?BotResult
+    public function getBot(): BotResult|string|null
     {
         return $this->container['bot'];
     }
@@ -1118,7 +1120,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
      * @param BotResult $bot bot
      *
      */
-    public function setBot(BotResult $bot): self
+    public function setBot(BotResult|string $bot): self
     {
         $this->container['bot'] = $bot;
 
@@ -1348,8 +1350,9 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Gets proxy_confidence.
      *
+     * @return ProxyConfidence|null
      */
-    public function getProxyConfidence(): ?ProxyConfidence
+    public function getProxyConfidence(): ProxyConfidence|string|null
     {
         return $this->container['proxy_confidence'];
     }
@@ -1360,7 +1363,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
      * @param ProxyConfidence $proxy_confidence proxy_confidence
      *
      */
-    public function setProxyConfidence(ProxyConfidence $proxy_confidence): self
+    public function setProxyConfidence(ProxyConfidence|string $proxy_confidence): self
     {
         $this->container['proxy_confidence'] = $proxy_confidence;
 
@@ -1641,8 +1644,9 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Gets tampering_confidence.
      *
+     * @return TamperingConfidence|null
      */
-    public function getTamperingConfidence(): ?TamperingConfidence
+    public function getTamperingConfidence(): string|TamperingConfidence|null
     {
         return $this->container['tampering_confidence'];
     }
@@ -1653,7 +1657,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
      * @param TamperingConfidence $tampering_confidence tampering_confidence
      *
      */
-    public function setTamperingConfidence(TamperingConfidence $tampering_confidence): self
+    public function setTamperingConfidence(string|TamperingConfidence $tampering_confidence): self
     {
         $this->container['tampering_confidence'] = $tampering_confidence;
 
@@ -1809,8 +1813,9 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Gets vpn_confidence.
      *
+     * @return VpnConfidence|null
      */
-    public function getVpnConfidence(): ?VpnConfidence
+    public function getVpnConfidence(): string|VpnConfidence|null
     {
         return $this->container['vpn_confidence'];
     }
@@ -1821,7 +1826,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
      * @param VpnConfidence $vpn_confidence vpn_confidence
      *
      */
-    public function setVpnConfidence(VpnConfidence $vpn_confidence): self
+    public function setVpnConfidence(string|VpnConfidence $vpn_confidence): self
     {
         $this->container['vpn_confidence'] = $vpn_confidence;
 
@@ -1941,8 +1946,9 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Gets rare_device_percentile_bucket.
      *
+     * @return RareDevicePercentileBucket|null
      */
-    public function getRareDevicePercentileBucket(): ?RareDevicePercentileBucket
+    public function getRareDevicePercentileBucket(): RareDevicePercentileBucket|string|null
     {
         return $this->container['rare_device_percentile_bucket'];
     }
@@ -1953,7 +1959,7 @@ class Event implements ModelInterface, \ArrayAccess, \JsonSerializable
      * @param RareDevicePercentileBucket $rare_device_percentile_bucket rare_device_percentile_bucket
      *
      */
-    public function setRareDevicePercentileBucket(RareDevicePercentileBucket $rare_device_percentile_bucket): self
+    public function setRareDevicePercentileBucket(RareDevicePercentileBucket|string $rare_device_percentile_bucket): self
     {
         $this->container['rare_device_percentile_bucket'] = $rare_device_percentile_bucket;
 

@@ -61,14 +61,14 @@ class SDKTest extends TestCase
     }
 
     /**
-     * setPlatform should throw InvalidArgumentException for an invalid enum value.
+     * setPlatform should accept unknown enum values without throwing.
      */
-    public function testSetPlatformRejectsInvalidValue(): void
+    public function testSetPlatformAcceptsUnknownValue(): void
     {
         $model = new SDK();
 
-        $this->expectException(\InvalidArgumentException::class);
         $model->setPlatform('invalid');
+        $this->assertEquals('invalid', $model->getPlatform());
     }
 
     /**
@@ -168,21 +168,18 @@ class SDKTest extends TestCase
     }
 
     /**
-     * listInvalidProperties should report invalid enum values set via ArrayAccess bypass.
+     * listInvalidProperties should not report unknown enum values.
      */
-    public function testListInvalidPropertiesWithInvalidEnumValues(): void
+    public function testListInvalidPropertiesAcceptsUnknownEnumValues(): void
     {
         $model = new SDK(self::EXAMPLE);
 
         $model['platform'] = 'not_a_valid_platform';
 
         $invalid = $model->listInvalidProperties();
-        $expected = "'".implode("', '", self::PLATFORM_VALUES)."'";
 
-        $this->assertContains(
-            "invalid value 'not_a_valid_platform' for 'platform', must be one of ".$expected,
-            $invalid
-        );
+        $enumErrors = array_filter($invalid, fn ($msg) => str_contains($msg, 'invalid value'));
+        $this->assertEmpty($enumErrors, 'Unknown enum values should not produce invalid properties');
     }
 
     /**

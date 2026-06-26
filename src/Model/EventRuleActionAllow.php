@@ -352,8 +352,9 @@ class EventRuleActionAllow implements ModelInterface, \ArrayAccess, \JsonSeriali
     /**
      * Gets type.
      *
+     * @return RuleActionType|null
      */
-    public function getType(): ?RuleActionType
+    public function getType(): RuleActionType|string|null
     {
         return $this->container['type'];
     }
@@ -364,7 +365,7 @@ class EventRuleActionAllow implements ModelInterface, \ArrayAccess, \JsonSeriali
      * @param RuleActionType $type type
      *
      */
-    public function setType(RuleActionType $type): self
+    public function setType(RuleActionType|string $type): self
     {
         $this->container['type'] = $type;
 

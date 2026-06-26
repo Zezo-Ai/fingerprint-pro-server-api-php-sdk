@@ -263,8 +263,9 @@ class Error implements ModelInterface, \ArrayAccess, \JsonSerializable
     /**
      * Gets code.
      *
+     * @return ErrorCode|null
      */
-    public function getCode(): ?ErrorCode
+    public function getCode(): ErrorCode|string|null
     {
         return $this->container['code'];
     }
@@ -275,7 +276,7 @@ class Error implements ModelInterface, \ArrayAccess, \JsonSerializable
      * @param ErrorCode $code code
      *
      */
-    public function setCode(ErrorCode $code): self
+    public function setCode(ErrorCode|string $code): self
     {
         $this->container['code'] = $code;
 
