@@ -1,5 +1,11 @@
 # Fingerprint Server PHP SDK
 
+## 7.2.1
+
+### Patch Changes
+
+- Allow unknown enum values to prevent SDK breakage when new values are added server-side. ([1b83c63](https://github.com/fingerprintjs/php-sdk/commit/1b83c63c64bf17683392909ed78167adf1a2212d))
+
 ## 7.2.0
 
 ### Minor Changes
