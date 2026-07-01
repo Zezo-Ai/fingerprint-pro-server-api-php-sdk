@@ -165,8 +165,8 @@ class FingerprintApiTest extends TestCase
 
         $response = $this->api->getEventWithHttpInfo(MockHelper::MOCK_EVENT_ID)[1];
         $responseBody = Utils::jsonDecode($response->getBody()->getContents());
-        $this->assertEquals('new_field_value', $responseBody->new_field);
-        $this->assertEquals('new_sub_field_value', $responseBody->browser_details->new_sub_field);
+        $this->assertEquals('unknown_field_value', $responseBody->unknown_field);
+        $this->assertEquals('unknown_sub_field_value', $responseBody->browser_details->unknown_sub_field);
     }
 
     /**
