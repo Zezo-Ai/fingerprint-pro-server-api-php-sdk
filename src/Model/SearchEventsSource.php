@@ -1,7 +1,7 @@
 <?php
 
 /**
- * BotResult.
+ * SearchEventsSource.
  *
  * @category Enum
  *
@@ -30,14 +30,9 @@
 namespace Fingerprint\ServerSdk\Model;
 
 /**
- * Bot detection result:
- * `bad` - bad bot detected, such as Selenium, Puppeteer, Playwright, headless browsers, and so on
- * `good` - good bot detected, such as Google bot, Baidu Spider, AlexaBot and so on
- * `not_detected` - the visitor is not a bot
+ * SearchEventsSource Enum.
  *
  * @category Enum
- *
- * @description Bot detection result:  * &#x60;bad&#x60; - bad bot detected, such as Selenium, Puppeteer, Playwright, headless browsers, and so on  * &#x60;good&#x60; - good bot detected, such as Google bot, Baidu Spider, AlexaBot and so on  * &#x60;not_detected&#x60; - the visitor is not a bot
  *
  * @author   Fingerprint
  *
@@ -46,9 +41,7 @@ namespace Fingerprint\ServerSdk\Model;
  * @noinspection GrazieInspection
  * @noinspection RedundantSuppression
  */
-enum BotResult: string
+enum SearchEventsSource: string
 {
-    case BAD = 'bad';
-    case GOOD = 'good';
-    case NOT_DETECTED = 'not_detected';
+    case EDGE = 'edge';
 }

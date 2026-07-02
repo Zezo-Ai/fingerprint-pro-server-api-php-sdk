@@ -22,6 +22,7 @@ class ProxyDetailsTest extends TestCase
     private const PROXY_TYPE_VALUES = [
         'residential',
         'data_center',
+        'unknown',
     ];
 
     /**

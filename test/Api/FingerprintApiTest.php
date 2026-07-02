@@ -21,6 +21,7 @@ use Fingerprint\ServerSdk\Model\SearchEventsBot;
 use Fingerprint\ServerSdk\Model\SearchEventsBotInfo;
 use Fingerprint\ServerSdk\Model\SearchEventsIncrementalIdentificationStatus;
 use Fingerprint\ServerSdk\Model\SearchEventsSdkPlatform;
+use Fingerprint\ServerSdk\Model\SearchEventsSource;
 use Fingerprint\ServerSdk\Model\SearchEventsVpnConfidence;
 use Fingerprint\ServerSdk\Model\SupplementaryIDHighRecall;
 use Fingerprint\ServerSdk\Test\MockHelper;
@@ -165,8 +166,8 @@ class FingerprintApiTest extends TestCase
 
         $response = $this->api->getEventWithHttpInfo(MockHelper::MOCK_EVENT_ID)[1];
         $responseBody = Utils::jsonDecode($response->getBody()->getContents());
-        $this->assertEquals('new_field_value', $responseBody->new_field);
-        $this->assertEquals('new_sub_field_value', $responseBody->browser_details->new_sub_field);
+        $this->assertEquals('unknown_field_value', $responseBody->unknown_field);
+        $this->assertEquals('unknown_sub_field_value', $responseBody->browser_details->unknown_sub_field);
     }
 
     /**
@@ -710,6 +711,7 @@ class FingerprintApiTest extends TestCase
             'tor_node' => true,
             'incremental_identification_status' => [SearchEventsIncrementalIdentificationStatus::COMPLETED, 'completed'],
             'simulator' => true,
+            'source' => [[SearchEventsSource::EDGE], ['edge']],
         ];
 
         $this->mockHandler->append(function (RequestInterface $request) use ($expected) {
@@ -722,9 +724,10 @@ class FingerprintApiTest extends TestCase
                 $this->assertArrayHasKey($query, $queryArray, "Missing query parameter: $query");
                 $expectedValue = is_array($value) ? $value[1] : (is_bool($value) ? ($value ? 'true' : 'false') : $value);
                 if (is_array($expectedValue)) {
+                    $actualValue = is_array($queryArray[$query]) ? $queryArray[$query] : [$queryArray[$query]];
                     $expectedValueItems = implode(', ', $expectedValue);
-                    $queryItems = implode(', ', $queryArray[$query]);
-                    $this->assertArrayIsEqualToArrayIgnoringListOfKeys($expectedValue, $queryArray[$query], [], "Array query parameter '$query' expected to have '$expectedValueItems' got '$queryItems'");
+                    $queryItems = implode(', ', $actualValue);
+                    $this->assertArrayIsEqualToArrayIgnoringListOfKeys($expectedValue, $actualValue, [], "Array query parameter '$query' expected to have '$expectedValueItems' got '$queryItems'");
                 } else {
                     $this->assertEquals($expectedValue, $queryArray[$query], "Query parameter '$query' expected '$expectedValue' got '$queryArray[$query]'");
                 }
@@ -779,7 +782,8 @@ class FingerprintApiTest extends TestCase
             total_hits: $expected['total_hits'],
             tor_node: $expected['tor_node'],
             incremental_identification_status: $expected['incremental_identification_status'][0],
-            simulator: $expected['simulator']
+            simulator: $expected['simulator'],
+            source: $expected['source'][0],
         )->getEvents();
 
         $this->assertCount(1, $events);
