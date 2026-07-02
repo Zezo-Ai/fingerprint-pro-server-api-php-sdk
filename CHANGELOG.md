@@ -1,5 +1,16 @@
 # Fingerprint Server PHP SDK
 
+## 7.3.0
+
+### Minor Changes
+
+- **events**: Add `device`, `os`, and `os_version` to `Event` ([8894b47](https://github.com/fingerprintjs/php-sdk/commit/8894b479a55b5da0cf0eb8c76e76dad04978392c))
+- **events-search**: Add `source` query parameter to filter events by `edge` (Automation Intelligence) source ([8894b47](https://github.com/fingerprintjs/php-sdk/commit/8894b479a55b5da0cf0eb8c76e76dad04978392c))
+- **events**: Add `battery_level` and `battery_low_power_mode` to `RawDeviceAttributes` ([8894b47](https://github.com/fingerprintjs/php-sdk/commit/8894b479a55b5da0cf0eb8c76e76dad04978392c))
+- **events**: Add `ml_prediction` to `vpn_methods` ([8894b47](https://github.com/fingerprintjs/php-sdk/commit/8894b479a55b5da0cf0eb8c76e76dad04978392c))
+- **events**: Add `vpn_ml_score` to `Event` ([8894b47](https://github.com/fingerprintjs/php-sdk/commit/8894b479a55b5da0cf0eb8c76e76dad04978392c))
+- **events-search**: Document 404 response for `searchEvents` operation ([8894b47](https://github.com/fingerprintjs/php-sdk/commit/8894b479a55b5da0cf0eb8c76e76dad04978392c))
+
 ## 7.2.1
 
 ### Patch Changes

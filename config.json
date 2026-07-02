@@ -7,7 +7,7 @@
   "gitRepoBaseURL": "https://github.com",
   "gitUserId": "fingerprintjs",
   "gitRepoId": "php-sdk",
-  "artifactVersion": "7.2.1",
+  "artifactVersion": "7.3.0",
   "organizationName": "Fingerprint",
   "organizationUrl": "https://fingerprint.com",
   "licenseName": "MIT",
