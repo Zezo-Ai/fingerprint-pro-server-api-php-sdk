@@ -7,6 +7,12 @@ git_push.sh
 src/HeaderSelector.php
 src/FormDataProcessor.php
 
+# Ignore unused oneOf parameter models generated
+src/Model/SearchEventsStartParameter.php
+src/Model/SearchEventsEndParameter.php
+docs/Model/SearchEventsStartParameter.md
+docs/Model/SearchEventsEndParameter.md
+
 # Ignore enum test files
 test/Model/BotResultTest.php
 test/Model/ErrorCodeTest.php
