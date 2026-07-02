@@ -48,7 +48,6 @@ docs/Model/SearchEventsIncrementalIdentificationStatus.md
 docs/Model/SearchEventsRareDevicePercentileBucket.md
 docs/Model/SearchEventsSdkPlatform.md
 docs/Model/SearchEventsSource.md
-docs/Model/SearchEventsStartParameter.md
 docs/Model/SearchEventsVpnConfidence.md
 docs/Model/SupplementaryIDHighRecall.md
 docs/Model/TamperingConfidence.md
@@ -115,7 +114,6 @@ src/Model/SearchEventsIncrementalIdentificationStatus.php
 src/Model/SearchEventsRareDevicePercentileBucket.php
 src/Model/SearchEventsSdkPlatform.php
 src/Model/SearchEventsSource.php
-src/Model/SearchEventsStartParameter.php
 src/Model/SearchEventsVpnConfidence.php
 src/Model/SupplementaryIDHighRecall.php
 src/Model/TamperingConfidence.php
