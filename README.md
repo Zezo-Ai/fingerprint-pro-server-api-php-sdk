@@ -187,10 +187,28 @@ All URIs are relative to your region's base URL.
 | Europe      | https://eu.api.fpjs.io/v4 |
 | Asia        | https://ap.api.fpjs.io/v4 |
 
-## Webhook Signing
+## Webhooks
 
-This SDK provides utility method for verifying the HMAC signature of the incoming webhook request.
-You can use below code to verify signature:
+### Webhook types
+
+When handling [Webhooks](https://docs.fingerprint.com/docs/webhooks) coming from Fingerprint, you can cast the webhook payload as the built-in `Event` type using `ObjectSerializer::deserialize`:
+
+```php
+<?php
+
+use Fingerprint\ServerSdk\ObjectSerializer;
+use Fingerprint\ServerSdk\Model\Event;
+
+// $webhookData is the raw JSON string from the incoming webhook request body
+$event = ObjectSerializer::deserialize(
+    json_decode($webhookData),
+    Event::class
+);
+```
+
+### Webhook signature validation
+
+Fingerprint offers [Webhook signatures](https://docs.fingerprint.com/docs/webhooks#protecting-your-webhooks) to verify the authenticity of incoming webhook requests. This SDK provides a utility method for verification:
 
 ```php
 <?php
@@ -200,7 +218,7 @@ use Fingerprint\ServerSdk\Webhook\WebhookVerifier;
 // Your webhook signing secret.
 $webhookSecret = "secret";
 
-// Request data. In real life scenerio this will be the body of incoming request
+// Request data. In real life scenario this will be the body of incoming request
 $webhookData = "data";
 
 // Value of the "fpjs-event-signature" header.
