@@ -34,6 +34,7 @@ This library supports the following PHP implementations:
 - PHP 8.2
 - PHP 8.3
 - PHP 8.4
+- PHP 8.5
 
 We currently don't support external PHP Runtimes like:
 
