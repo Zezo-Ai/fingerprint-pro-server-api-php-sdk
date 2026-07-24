@@ -95,7 +95,7 @@ use GuzzleHttp\Client;
  * If you leave the second parameter empty, then Configuration::REGION_GLOBAL will be used as a default region
  * Options for regions are:
  * Configuration::REGION_EUROPE
- * Congiruration::REGION_GLOBAL
+ * Configuration::REGION_GLOBAL
  * Configuration::REGION_ASIA
  */
 $config = new Configuration(FP_API_SECRET, Configuration::REGION_EUROPE);
